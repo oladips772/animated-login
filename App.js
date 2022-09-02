@@ -8,8 +8,12 @@ import {
   TextInput,
   KeyboardAvoidingView,
   StatusBar,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from "react-native";
 import Svg, { Image } from "react-native-svg";
+import { AntDesign } from "react-native-vector-icons";
+import tw from "twrnc";
 
 export default function App() {
   const { height, width } = Dimensions.get("window");
@@ -18,7 +22,7 @@ export default function App() {
     <View style={styles.container}>
       <StatusBar barStyle={"white"} translucent />
       <View style={StyleSheet.absoluteFill}>
-        <Svg height={height} width={width}>
+        <Svg height={height / 2} width={width}>
           <Image
             href="https://images.unsplash.com/photo-1470955233021-2c79a52e5034?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fGRhcmslMjBzcGFjZXxlbnwwfHwwfHw%3D&w=1000&q=80"
             width={width}
@@ -26,8 +30,16 @@ export default function App() {
             preserveAspectRatio="xMidYMid slice"
           />
         </Svg>
+        <View style={tw`flex flex-row justify-center `}>
+          <TouchableOpacity
+            activeOpacity={0.6}
+            style={tw`shadow-md -mt-4 rounded-full bg-white h-[10] w-[10] text-center flex justify-center items-center`}
+          >
+            <AntDesign name="close" size={20} color="black" />
+          </TouchableOpacity>
+        </View>
       </View>
-      <View style={{ height: height / 3 }}>
+      {/* <View style={{ height: height / 3 }}>
         <TouchableOpacity style={styles.button} activeOpacity={0.8}>
           <Text
             style={{
@@ -50,10 +62,10 @@ export default function App() {
             Register
           </Text>
         </TouchableOpacity>
-      </View>
-      {/* <KeyboardAvoidingView
-        keyboardVerticalOffset={-90}
-        style={{ height: height / 0.7 }}
+      </View> */}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={{ height: height / 2.5 }}
       >
         <TextInput
           placeholder="Email"
@@ -70,7 +82,18 @@ export default function App() {
           placeholderTextColor={"black"}
           style={styles.input}
         />
-      </KeyboardAvoidingView> */}
+        <TouchableOpacity style={styles.button} activeOpacity={0.8}>
+          <Text
+            style={{
+              fontSize: 18,
+              color: "white",
+              fontWeight: "bold",
+            }}
+          >
+            Log in
+          </Text>
+        </TouchableOpacity>
+      </KeyboardAvoidingView>
     </View>
   );
 }
@@ -101,8 +124,8 @@ const styles = StyleSheet.create({
     width: 340,
     marginVertical: 7,
     borderRadius: 25,
-    paddingLeft: 8,
-    borderColor: "black",
+    paddingLeft: 15,
+    borderColor: "gray",
     borderWidth: 1,
     fontSize: 18,
   },
